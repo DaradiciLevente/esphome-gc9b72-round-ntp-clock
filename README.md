@@ -71,7 +71,7 @@ Run compilation and flash your ESP32-C3:
 esphome run roundclock.yaml
 ```
 
-## 🔄 Display Rotation
+# 🔄 Display Rotation
 
 If you need to rotate the screen orientation (e.g., upside down by 180°), edit the `setup()` function inside `gc9b72_display.h`:
 
