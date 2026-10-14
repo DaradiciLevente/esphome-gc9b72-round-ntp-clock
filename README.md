@@ -71,6 +71,15 @@ Run compilation and flash your ESP32-C3:
 esphome run roundclock.yaml
 ```
 
+## 🔄 Display Rotation
+
+If you need to rotate the screen orientation (e.g., upside down by 180°), edit the `setup()` function inside `gc9b72_display.h`:
+
+```
+// Change the 3rd parameter: 0 = 0°, 1 = 90°, 2 = 180°, 3 = 270°
+gfx = new Arduino_GC9B72(bus, TFT_RST, 2, true, 360, 360);
+```
+
 # 🔌 Home Assistant Integration
 Once connected to Wi-Fi, ESPHome will automatically discover the device in Home Assistant (or you can add it manually via the Native API integration).
 
