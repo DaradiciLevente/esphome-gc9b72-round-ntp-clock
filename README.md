@@ -49,14 +49,14 @@ Since the **GC9B72** display controller is currently undocumented and not native
 └── README.md            # Project documentation
 ```
 
-⚙️ Installation & Setup
-Prepare ESPHome:
+# ⚙️ Installation & Setup
+## Prepare ESPHome:
 Ensure you have ESPHome running via Home Assistant Add-on or CLI.
 
-##Copy Files:
+## Copy Files:
 Copy all repository files (roundclock.yaml, gc9b72_display.h, Arduino_GC9B72.h, and Arduino_GC9B72.cpp) into your ESPHome configuration directory (e.g., /config/esphome/).
 
-##Configure Wi-Fi:
+## Configure Wi-Fi:
 Open roundclock.yaml and update the Wi-Fi credentials with your own:
 
 ```
@@ -64,9 +64,8 @@ wifi:
   ssid: "YOUR_WIFI_SSID"
   password: "YOUR_WIFI_PASSWORD"
 ```
-```
 
-##Compile & Flash:
+## Compile & Flash:
 Run compilation and flash your ESP32-C3:
 ```
 esphome run roundclock.yaml
@@ -79,13 +78,14 @@ Entities created:
 ```
 light.luminozitate_display: Controls display backlight brightness (0–100%).
 ```
+
 ```
 select.selectare_fus_orar: Timezone selector providing real-time clock adjustment.
 ```
 
-##👏 Credits & Acknowledgments
+## 👏 Credits & Acknowledgments
 
 MaliosDark / Arduino_GC9B72 - Special thanks for the custom GC9B72 display driver written for Arduino_GFX.
 
-📄 License
+## 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
