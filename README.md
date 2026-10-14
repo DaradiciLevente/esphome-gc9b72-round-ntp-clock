@@ -1,10 +1,6 @@
 # ESPHome Round NTP Clock with GC9B72 Display & ESP32-C3
 
 <p align="center">
-  <img src="/images/IMG_20261014_101943.jpg" alt="ESPHome GC9B72 Clock Preview" width="400"/>
-</p>
-
-<p align="center">
   <img src="images/IMG_20261014_101943.jpg" width="45%" alt="Ceas GC9B72 Front" />
   &nbsp;
   <img src="images/IMG_20261014_101926.jpg" width="45%" alt="Ceas GC9B72 Cadru 2" />
