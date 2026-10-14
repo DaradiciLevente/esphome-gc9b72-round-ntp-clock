@@ -49,7 +49,7 @@ Since the **GC9B72** display controller is currently undocumented and not native
 └── README.md            # Project documentation
 ```
 
-⚙️ Installation & Setup```
+⚙️ Installation & Setup
 Prepare ESPHome:
 Ensure you have ESPHome running via Home Assistant Add-on or CLI.
 
