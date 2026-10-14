@@ -85,7 +85,7 @@ select.selectare_fus_orar: Timezone selector providing real-time clock adjustmen
 
 # 👏 Credits & Acknowledgments
 
-MaliosDark / Arduino_GC9B72 - Special thanks for the custom GC9B72 display driver written for Arduino_GFX.
+* **[MaliosDark / Arduino_GC9B72](https://github.com/MaliosDark/Arduino_GC9B72)** - Special thanks for the custom GC9B72 display driver written for `Arduino_GFX`.
 
 # 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
