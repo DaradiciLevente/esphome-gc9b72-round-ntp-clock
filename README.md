@@ -71,7 +71,7 @@ Run compilation and flash your ESP32-C3:
 esphome run roundclock.yaml
 ```
 
-## 🔌 Home Assistant Integration
+# 🔌 Home Assistant Integration
 Once connected to Wi-Fi, ESPHome will automatically discover the device in Home Assistant (or you can add it manually via the Native API integration).
 
 Entities created:
@@ -87,5 +87,5 @@ select.selectare_fus_orar: Timezone selector providing real-time clock adjustmen
 
 MaliosDark / Arduino_GC9B72 - Special thanks for the custom GC9B72 display driver written for Arduino_GFX.
 
-## 📄 License
+# 📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
