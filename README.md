@@ -53,10 +53,10 @@ Since the **GC9B72** display controller is currently undocumented and not native
 Prepare ESPHome:
 Ensure you have ESPHome running via Home Assistant Add-on or CLI.
 
-## Copy Files:
+##Copy Files:
 Copy all repository files (roundclock.yaml, gc9b72_display.h, Arduino_GC9B72.h, and Arduino_GC9B72.cpp) into your ESPHome configuration directory (e.g., /config/esphome/).
 
-## Configure Wi-Fi:
+##Configure Wi-Fi:
 Open roundclock.yaml and update the Wi-Fi credentials with your own:
 ```
 wifi:
@@ -64,7 +64,7 @@ wifi:
   password: "YOUR_WIFI_PASSWORD"
 ```
 
-## Compile & Flash:
+##Compile & Flash:
 Run compilation and flash your ESP32-C3:
 ```
 esphome run roundclock.yaml
