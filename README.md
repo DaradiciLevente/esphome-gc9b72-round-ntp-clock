@@ -1,5 +1,9 @@
 # ESPHome Round NTP Clock with GC9B72 Display & ESP32-C3
 
+<p align="center">
+  <img src="/images/IMG_20261014_101943.jpg" alt="ESPHome GC9B72 Clock Preview" width="400"/>
+</p>
+
 An analog-style NTP clock built with **ESPHome**, running on an **ESP32-C3** board (SuperMini / DevKit) with a round **GC9B72** (360x360) TFT display driven by the `Arduino_GFX` library.
 
 Since the **GC9B72** display controller is currently undocumented and not natively supported in ESPHome, this repository provides a full custom implementation using external C++ code.
