@@ -6,7 +6,7 @@
   <img src="images/IMG_20261014_101926.jpg" width="45%" alt="Ceas GC9B72 Cadru 2" />
 </p>
 
-An analog-style NTP clock built with **ESPHome**, running on an **ESP32-C3** board (SuperMini / DevKit) with a round **GC9B72** (360x360) TFT display driven by the `Arduino_GFX` library.
+An analog-style NTP clock built with **ESPHome**, running on an **ESP32-C3** board (SuperMini / DevKit) with a 2.1-inch round **GC9B72** (360x360) TFT display driven by the `Arduino_GFX` library.
 
 Since the **GC9B72** display controller is currently undocumented and not natively supported in ESPHome, this repository provides a full custom implementation using external C++ code.
 
@@ -27,7 +27,7 @@ Since the **GC9B72** display controller is currently undocumented and not native
 ## 🛠 Hardware Required
 
 * **Microcontroller**: ESP32-C3 SuperMini (or ESP32-C3 DevKitM-1)
-* **Display**: GC9B72 Round TFT Display (360x360 resolution, SPI interface)
+* **Display**: GC9B72 2.1-inch Round TFT Display (360x360 resolution, SPI interface)
 * **Connectivity**: Wi-Fi (2.4 GHz)
 
 ### Pinout Configuration
