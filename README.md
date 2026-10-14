@@ -49,9 +49,9 @@ Since the **GC9B72** display controller is currently undocumented and not native
 └── README.md            # Project documentation
 ```
 
-⚙️ Installation & Setup
+⚙️ Installation & Setup```
 Prepare ESPHome:
-Ensure you have ESPHome running via Home Assistant Add-on or CLI.```
+Ensure you have ESPHome running via Home Assistant Add-on or CLI.
 
 ##Copy Files:
 Copy all repository files (roundclock.yaml, gc9b72_display.h, Arduino_GC9B72.h, and Arduino_GC9B72.cpp) into your ESPHome configuration directory (e.g., /config/esphome/).
