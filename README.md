@@ -83,7 +83,7 @@ light.luminozitate_display: Controls display backlight brightness (0–100%).
 select.selectare_fus_orar: Timezone selector providing real-time clock adjustment.
 ```
 
-## 👏 Credits & Acknowledgments
+# 👏 Credits & Acknowledgments
 
 MaliosDark / Arduino_GC9B72 - Special thanks for the custom GC9B72 display driver written for Arduino_GFX.
 
