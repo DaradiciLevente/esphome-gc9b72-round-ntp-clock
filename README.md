@@ -58,10 +58,12 @@ Copy all repository files (roundclock.yaml, gc9b72_display.h, Arduino_GC9B72.h, 
 
 ##Configure Wi-Fi:
 Open roundclock.yaml and update the Wi-Fi credentials with your own:
+
 ```
 wifi:
   ssid: "YOUR_WIFI_SSID"
   password: "YOUR_WIFI_PASSWORD"
+```
 ```
 
 ##Compile & Flash:
