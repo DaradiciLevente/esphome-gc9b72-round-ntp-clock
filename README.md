@@ -27,7 +27,7 @@ Since the **GC9B72** display controller is currently undocumented and not native
 ## 🛠 Hardware Required
 
 * **Microcontroller**: ESP32-C3 SuperMini (or ESP32-C3 DevKitM-1)
-* **Display**: GC9B72 2.1-inch Round TFT Display (360x360 resolution, SPI interface)
+* **Display**: [GC9B72 2.1-inch Round TFT Display (360x360 resolution, SPI interface)](https://www.aliexpress.com/item/1005012563105739.html)
 * **Connectivity**: Wi-Fi (2.4 GHz)
 
 ### Pinout Configuration
