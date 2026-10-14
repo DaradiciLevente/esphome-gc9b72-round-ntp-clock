@@ -71,7 +71,7 @@ Run compilation and flash your ESP32-C3:
 esphome run roundclock.yaml
 ```
 
-##🔌 Home Assistant Integration
+## 🔌 Home Assistant Integration
 Once connected to Wi-Fi, ESPHome will automatically discover the device in Home Assistant (or you can add it manually via the Native API integration).
 
 Entities created:
