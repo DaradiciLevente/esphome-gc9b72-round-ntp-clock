@@ -5,6 +5,7 @@
   &nbsp;
   <img src="images/IMG_20261014_101926.jpg" width="45%" alt="Ceas GC9B72 Cadru 2" />
 </p>
+
 ## 📺 Video Demos
 
 - 📹 **[Watch Part 1: Basic NTP Clock Setup & Driver Integration](https://www.youtube.com/watch?v=i179yfx4AWM)**
