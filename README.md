@@ -25,6 +25,7 @@ Since the **GC9B72** display controller is currently undocumented and not native
 * **Dynamic Timezones**: Global timezone selector drop-down directly in Home Assistant (UTC-12 to UTC+14) with DST support.
 * **PWM Backlight Control**: Adjustable screen brightness exposed as a standard light entity in Home Assistant.
 * **NVS Persistence**: Preserves last selected timezone and brightness settings across reboots.
+* **Live Color Customization**: Customize background, dial rings, ticks, numbers, and clock hands on-the-fly using Home Assistant color pickers (available in `/color-clock`).
 
 ---
 
