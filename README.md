@@ -58,6 +58,9 @@ Since the **GC9B72** display controller is currently undocumented and not native
 ├── Arduino_GC9B72.h     # Custom GC9B72 display driver header
 ├── Arduino_GC9B72.cpp   # Custom GC9B72 display driver implementation
 └── README.md            # Project documentation
+├── color-clock/          # Dynamic-color version (HA Color Pickers)
+│   ├── roundclock.yaml   # ESPHome configuration with RGB light entities
+│   └── gc9b72_display.h  # C++ Header with dynamic color rendering logic
 ```
 
 # ⚙️ Installation & Setup
