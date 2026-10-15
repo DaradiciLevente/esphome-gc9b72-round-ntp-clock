@@ -5,6 +5,10 @@
   &nbsp;
   <img src="images/IMG_20261014_101926.jpg" width="45%" alt="Ceas GC9B72 Cadru 2" />
 </p>
+## 📺 Video Demos
+
+- 📹 **[Watch Part 1: Basic NTP Clock Setup & Driver Integration](https://www.youtube.com/watch?v=i179yfx4AWM)**
+- 🎨 **[Watch Part 2: Customizing Colors Live via Home Assistant](https://youtu.be/VmiP1-VmuHE)**
 
 An analog-style NTP clock built with **ESPHome**, running on an **ESP32-C3** board (SuperMini / DevKit) with a 2.1-inch round **GC9B72** (360x360) TFT display driven by the `Arduino_GFX` library.
 
