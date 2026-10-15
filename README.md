@@ -8,8 +8,20 @@
 
 ## 📺 Video Demos
 
-- 📹 **[Watch Part 1: Basic NTP Clock Setup & Driver Integration](https://www.youtube.com/watch?v=i179yfx4AWM)**
-- 🎨 **[Watch Part 2: Customizing Colors Live via Home Assistant](https://youtu.be/VmiP1-VmuHE)**
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=i179yfx4AWM" target="_blank">
+    <img src="https://img.youtube.com/vi/i179yfx4AWM/hqdefault.jpg" width="45%" alt="Part 1: Basic NTP Clock" />
+  </a>
+  &nbsp;
+  <a href="https://youtu.be/VmiP1-VmuHE" target="_blank">
+    <img src="https://img.youtube.com/vi/VmiP1-VmuHE/hqdefault.jpg" width="45%" alt="Part 2: Customizing Colors" />
+  </a>
+</p>
+
+<p align="center">
+  <b>Part 1: Basic NTP Clock Setup & Driver Integration</b> &nbsp;|&nbsp; 
+  <b>Part 2: Customizing Colors Live via Home Assistant</b>
+</p>
 
 An analog-style NTP clock built with **ESPHome**, running on an **ESP32-C3** board (SuperMini / DevKit) with a 2.1-inch round **GC9B72** (360x360) TFT display driven by the `Arduino_GFX` library.
 
