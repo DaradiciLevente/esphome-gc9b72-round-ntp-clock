@@ -105,7 +105,17 @@ light.luminozitate_display: Controls display backlight brightness (0–100%).
 ```
 select.selectare_fus_orar: Timezone selector providing real-time clock adjustment.
 ```
-
+Additional entities created when using the `/color-clock` version:
+```
+light.culoare_fundal: Controls the clock face background color.
+light.culoare_cerc_exterior: Controls outer ring color.
+light.culoare_cerc_interior: Controls inner ring color.
+light.culoare_cerc_minute: Controls minute track ring color.
+light.culoare_gradatii_si_cifre: Controls ticks, numbers, and text colors.
+light.culoare_limba_orar: Controls hour hand color.
+light.culoare_limba_minutar: Controls minute hand color.
+light.culoare_limba_secundar: Controls second hand color.
+```
 # 👏 Credits & Acknowledgments
 
 * **[MaliosDark / Arduino_GC9B72](https://github.com/MaliosDark/Arduino_GC9B72)** - Special thanks for the custom GC9B72 display driver written for `Arduino_GFX`.
