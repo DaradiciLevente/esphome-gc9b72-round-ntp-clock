@@ -1,0 +1,325 @@
+esphome:
+  name: roundclock
+  includes:
+    - Arduino_GC9B72.h
+    - Arduino_GC9B72.cpp
+    - gc9b72_display.h
+  libraries:
+    - "GFX Library for Arduino"
+    - "Wire"
+    - "SPI"
+
+esp32:
+  board: esp32-c3-devkitm-1
+  variant: esp32c3
+  framework:
+    type: arduino
+
+preferences:
+  flash_write_interval: 1min
+
+time:
+  - platform: sntp
+    id: sntp_time
+    timezone: "EET-2EEST,M3.5.0/3,M10.5.0/4"
+
+interval:
+  - interval: 1s
+    then:
+      - lambda: |-
+          if (my_display.is_ready) {
+            auto time_now = id(sntp_time).now();
+            if (time_now.is_valid()) {
+              my_display.update_time(time_now.hour, time_now.minute, time_now.second);
+            }
+          }
+
+# Output-uri dummy pentru canalizarea entităților RGB de lumină
+output:
+  - platform: ledc
+    pin: GPIO4
+    id: backlight_pwm
+    frequency: 1000 Hz
+
+  # Output-uri virtuale
+  - platform: template
+    id: dummy_r
+    type: float
+    write_action: ["then": []]
+  - platform: template
+    id: dummy_g
+    type: float
+    write_action: ["then": []]
+  - platform: template
+    id: dummy_b
+    type: float
+    write_action: ["then": []]
+
+light:
+  - platform: monochromatic
+    name: "Luminozitate Display"
+    output: backlight_pwm
+    id: display_backlight
+    default_transition_length: 0s
+    restore_mode: RESTORE_DEFAULT_ON
+
+  # --- COLOR PICKERS (PENTRU HOME ASSISTANT) ---
+  - platform: rgb
+    name: "Culoare Fundal"
+    id: color_picker_bg
+    red: dummy_r
+    green: dummy_g
+    blue: dummy_b
+    restore_mode: RESTORE_DEFAULT_ON
+    default_transition_length: 0s
+    on_state:
+      then:
+        - lambda: |-
+            auto rgb = id(color_picker_bg).remote_values;
+            if (rgb.is_on()) {
+              my_display.color_bg = GC9B72Display::color565(rgb.get_red()*255, rgb.get_green()*255, rgb.get_blue()*255);
+            } else {
+              my_display.color_bg = 0x0000; // Negru când este oprit
+            }
+            if (my_display.is_ready) my_display.drawDial();
+
+  - platform: rgb
+    name: "Culoare Cerc Exterior"
+    id: color_picker_outer_ring
+    red: dummy_r
+    green: dummy_g
+    blue: dummy_b
+    restore_mode: RESTORE_DEFAULT_ON
+    default_transition_length: 0s
+    on_state:
+      then:
+        - lambda: |-
+            auto rgb = id(color_picker_outer_ring).remote_values;
+            if (rgb.is_on()) {
+              my_display.color_outer_ring = GC9B72Display::color565(rgb.get_red()*255, rgb.get_green()*255, rgb.get_blue()*255);
+            }
+            if (my_display.is_ready) my_display.drawDial();
+
+  - platform: rgb
+    name: "Culoare Cerc Interior"
+    id: color_picker_inner_ring
+    red: dummy_r
+    green: dummy_g
+    blue: dummy_b
+    restore_mode: RESTORE_DEFAULT_ON
+    default_transition_length: 0s
+    on_state:
+      then:
+        - lambda: |-
+            auto rgb = id(color_picker_inner_ring).remote_values;
+            if (rgb.is_on()) {
+              my_display.color_inner_ring = GC9B72Display::color565(rgb.get_red()*255, rgb.get_green()*255, rgb.get_blue()*255);
+            }
+            if (my_display.is_ready) my_display.drawDial();
+
+  - platform: rgb
+    name: "Culoare Cerc Minute"
+    id: color_picker_minute_ring
+    red: dummy_r
+    green: dummy_g
+    blue: dummy_b
+    restore_mode: RESTORE_DEFAULT_ON
+    default_transition_length: 0s
+    on_state:
+      then:
+        - lambda: |-
+            auto rgb = id(color_picker_minute_ring).remote_values;
+            if (rgb.is_on()) {
+              my_display.color_minute_ring = GC9B72Display::color565(rgb.get_red()*255, rgb.get_green()*255, rgb.get_blue()*255);
+            }
+            if (my_display.is_ready) my_display.drawDial();
+
+  - platform: rgb
+    name: "Culoare Gradații și Cifre"
+    id: color_picker_ticks_numbers
+    red: dummy_r
+    green: dummy_g
+    blue: dummy_b
+    restore_mode: RESTORE_DEFAULT_ON
+    default_transition_length: 0s
+    on_state:
+      then:
+        - lambda: |-
+            auto rgb = id(color_picker_ticks_numbers).remote_values;
+            if (rgb.is_on()) {
+              uint16_t c = GC9B72Display::color565(rgb.get_red()*255, rgb.get_green()*255, rgb.get_blue()*255);
+              my_display.color_ticks = c;
+              my_display.color_numbers = c;
+              my_display.color_text = c;
+            }
+            if (my_display.is_ready) my_display.drawDial();
+
+  - platform: rgb
+    name: "Culoare Limba Orar"
+    id: color_picker_hour_hand
+    red: dummy_r
+    green: dummy_g
+    blue: dummy_b
+    restore_mode: RESTORE_DEFAULT_ON
+    default_transition_length: 0s
+    on_state:
+      then:
+        - lambda: |-
+            auto rgb = id(color_picker_hour_hand).remote_values;
+            if (rgb.is_on()) {
+              my_display.color_hour_hand = GC9B72Display::color565(rgb.get_red()*255, rgb.get_green()*255, rgb.get_blue()*255);
+            }
+            my_display.force_redraw_hands();
+
+  - platform: rgb
+    name: "Culoare Limba Minutar"
+    id: color_picker_min_hand
+    red: dummy_r
+    green: dummy_g
+    blue: dummy_b
+    restore_mode: RESTORE_DEFAULT_ON
+    default_transition_length: 0s
+    on_state:
+      then:
+        - lambda: |-
+            auto rgb = id(color_picker_min_hand).remote_values;
+            if (rgb.is_on()) {
+              my_display.color_min_hand = GC9B72Display::color565(rgb.get_red()*255, rgb.get_green()*255, rgb.get_blue()*255);
+            }
+            my_display.force_redraw_hands();
+
+  - platform: rgb
+    name: "Culoare Limba Secundar"
+    id: color_picker_sec_hand
+    red: dummy_r
+    green: dummy_g
+    blue: dummy_b
+    restore_mode: RESTORE_DEFAULT_ON
+    default_transition_length: 0s
+    on_state:
+      then:
+        - lambda: |-
+            auto rgb = id(color_picker_sec_hand).remote_values;
+            if (rgb.is_on()) {
+              my_display.color_sec_hand = GC9B72Display::color565(rgb.get_red()*255, rgb.get_green()*255, rgb.get_blue()*255);
+            }
+            my_display.force_redraw_hands();
+
+select:
+  - platform: template
+    name: "Selectare Fus Orar"
+    id: timezone_selector
+    optimistic: true
+    restore_value: true
+    initial_option: "UTC+02:00 - România, Atena, Chișinău (EET/EEST)"
+    options:
+      - "UTC-12:00 - Linia de Data (Baker Island)"
+      - "UTC-11:00 - Samoa Americană, Niue"
+      - "UTC-10:00 - Hawaii, Tahiti"
+      - "UTC-09:00 - Alaska (AKST/AKDT)"
+      - "UTC-08:00 - Coasta de Vest SUA - Los Angeles, Vancouver (PST/PDT)"
+      - "UTC-07:00 - Zona Muntoasă SUA - Denver, Phoenix (MST/MDT)"
+      - "UTC-06:00 - Zona Centrală SUA / Mexic - Chicago (CST/CDT)"
+      - "UTC-05:00 - Coasta de Est SUA - New York, Toronto (EST/EDT)"
+      - "UTC-04:00 - America de Sud V / Santiago, Caracas (AST/CLT)"
+      - "UTC-03:00 - Brazilia, Argentina - Brasilia, Buenos Aires"
+      - "UTC-02:00 - Georgia de Sud, Sandwich-ul de Sud"
+      - "UTC-01:00 - Azore, Capul Verde"
+      - "UTC+00:00 - GMT / Marea Britanie, Irlanda, Lisabona (GMT/BST)"
+      - "UTC+01:00 - Europa Centrală - Berlin, Paris, Roma, Madrid (CET/CEST)"
+      - "UTC+02:00 - România, Atena, Chișinău (EET/EEST)"
+      - "UTC+03:00 - Moscova, Istanbul, Arabia Saudită, Cairo"
+      - "UTC+03:30 - Iran - Teheran"
+      - "UTC+04:00 - EAU, Oman - Dubai, Abu Dhabi (GST)"
+      - "UTC+04:30 - Afganistan - Kabul"
+      - "UTC+05:00 - Pakistan, Uzbekistan - Karachi, Tașkent"
+      - "UTC+05:30 - India - New Delhi, Mumbai (IST)"
+      - "UTC+05:45 - Nepal - Katmandu (NPT)"
+      - "UTC+06:00 - Bangladesh, Kazahstan - Dhaka, Almatî"
+      - "UTC+06:30 - Myanmar - Yangon"
+      - "UTC+07:00 - Thailanda, Indonezia V - Bangkok, Jakarta"
+      - "UTC+08:00 - China, Singapore, Australia V - Beijing, Perth"
+      - "UTC+08:45 - Australia de Sud-Vest (Eucla)"
+      - "UTC+09:00 - Japonia, Coreea de Sud - Tokyo, Seul (JST/KST)"
+      - "UTC+09:30 - Australia Centrală - Adelaide, Darwin"
+      - "UTC+10:00 - Australia de Est - Sydney, Melbourne, Brisbane"
+      - "UTC+10:30 - Insula Lord Howe (Australia)"
+      - "UTC+11:00 - Insulele Solomon, Noua Caledonie"
+      - "UTC+12:00 - Noua Zeelandă, Fiji - Auckland (NZST/NZDT)"
+      - "UTC+12:45 - Insulele Chatham (Noua Zeelandă)"
+      - "UTC+13:00 - Tonga, Samoa"
+      - "UTC+14:00 - Kiribati (Insula Line)"
+
+    on_value:
+      then:
+        - lambda: |-
+            std::string tz = "EET-2EEST,M3.5.0/3,M10.5.0/4";
+            
+            if (x == "UTC-12:00 - Linia de Data (Baker Island)")                 tz = "Etc/GMT+12";
+            else if (x == "UTC-11:00 - Samoa Americană, Niue")                  tz = "SST11";
+            else if (x == "UTC-10:00 - Hawaii, Tahiti")                         tz = "HST10";
+            else if (x == "UTC-09:00 - Alaska (AKST/AKDT)")                     tz = "AKST9AKDT,M3.2.0,M11.1.0";
+            else if (x == "UTC-08:00 - Coasta de Vest SUA - Los Angeles, Vancouver (PST/PDT)") tz = "PST8PDT,M3.2.0,M11.1.0";
+            else if (x == "UTC-07:00 - Zona Muntoasă SUA - Denver, Phoenix (MST/MDT)")       tz = "MST7MDT,M3.2.0,M11.1.0";
+            else if (x == "UTC-06:00 - Zona Centrală SUA / Mexic - Chicago (CST/CDT)")      tz = "CST6CDT,M3.2.0,M11.1.0";
+            else if (x == "UTC-05:00 - Coasta de Est SUA - New York, Toronto (EST/EDT)")     tz = "EST5EDT,M3.2.0,M11.1.0";
+            else if (x == "UTC-04:00 - America de Sud V / Santiago, Caracas (AST/CLT)")      tz = "CLT4CLST,M9.1.0/0,M4.1.0/0";
+            else if (x == "UTC-03:00 - Brazilia, Argentina - Brasilia, Buenos Aires")        tz = "BRT3";
+            else if (x == "UTC-02:00 - Georgia de Sud, Sandwich-ul de Sud")     tz = "GST2";
+            else if (x == "UTC-01:00 - Azore, Capul Verde")                     tz = "AZOT1AZOST,M3.5.0/0,M10.5.0/1";
+            else if (x == "UTC+00:00 - GMT / Marea Britanie, Irlanda, Lisabona (GMT/BST)")   tz = "GMT0BST,M3.5.0/1,M10.5.0";
+            else if (x == "UTC+01:00 - Europa Centrală - Berlin, Paris, Roma, Madrid (CET/CEST)") tz = "CET-1CEST,M3.5.0,M10.5.0/3";
+            else if (x == "UTC+02:00 - România, Atena, Chișinău (EET/EEST)")     tz = "EET-2EEST,M3.5.0/3,M10.5.0/4";
+            else if (x == "UTC+03:00 - Moscova, Istanbul, Arabia Saudită, Cairo") tz = "MSK-3";
+            else if (x == "UTC+03:30 - Iran - Teheran")                         tz = "IRST-3:30";
+            else if (x == "UTC+04:00 - EAU, Oman - Dubai, Abu Dhabi (GST)")     tz = "GST-4";
+            else if (x == "UTC+04:30 - Afganistan - Kabul")                     tz = "AFT-4:30";
+            else if (x == "UTC+05:00 - Pakistan, Uzbekistan - Karachi, Tașkent") tz = "PKT-5";
+            else if (x == "UTC+05:30 - India - New Delhi, Mumbai (IST)")        tz = "IST-5:30";
+            else if (x == "UTC+05:45 - Nepal - Katmandu (NPT)")                 tz = "NPT-5:45";
+            else if (x == "UTC+06:00 - Bangladesh, Kazahstan - Dhaka, Almatî")  tz = "BST-6";
+            else if (x == "UTC+06:30 - Myanmar - Yangon")                       tz = "MMT-6:30";
+            else if (x == "UTC+07:00 - Thailanda, Indonezia V - Bangkok, Jakarta") tz = "ICT-7";
+            else if (x == "UTC+08:00 - China, Singapore, Australia V - Beijing, Perth") tz = "CST-8";
+            else if (x == "UTC+08:45 - Australia de Sud-Vest (Eucla)")          tz = "ACWST-8:45";
+            else if (x == "UTC+09:00 - Japonia, Coreea de Sud - Tokyo, Seul (JST/KST)") tz = "JST-9";
+            else if (x == "UTC+09:30 - Australia Centrală - Adelaide, Darwin")   tz = "ACST-9:30ACDT,M10.1.0,M4.1.0/3";
+            else if (x == "UTC+10:00 - Australia de Est - Sydney, Melbourne, Brisbane") tz = "AEST-10AEDT,M10.1.0,M4.1.0/3";
+            else if (x == "UTC+10:30 - Insula Lord Howe (Australia)")           tz = "LHST-10:30LHDT,M10.1.0,M4.1.0";
+            else if (x == "UTC+11:00 - Insulele Solomon, Noua Caledonie")       tz = "SBT-11";
+            else if (x == "UTC+12:00 - Noua Zeelandă, Fiji - Auckland (NZST/NZDT)") tz = "NZST-12NZDT,M9.5.0,M4.1.0/3";
+            else if (x == "UTC+12:45 - Insulele Chatham (Noua Zeelandă)")       tz = "CHAST-12:45CHADT,M9.5.0/2:45,M4.1.0/3:45";
+            else if (x == "UTC+13:00 - Tonga, Samoa")                           tz = "TOT-13";
+            else if (x == "UTC+14:00 - Kiribati (Insula Line)")                 tz = "LINT-14";
+
+            id(sntp_time).set_timezone(tz.c_str());
+            ESP_LOGI("TIMEZONE", "Fus orar schimbat la: %s (%s)", x.c_str(), tz.c_str());
+
+i2c:
+  scl: GPIO6
+  sda: GPIO5
+
+spi:
+  clk_pin: GPIO0
+  mosi_pin: GPIO1
+
+wifi:
+  ssid: "YOUR WIFI SSID"
+  password: "YOUR WIFI PASSWORD"
+  power_save_mode: NONE
+  output_power: 8.5dBm
+  
+  on_connect:
+    then:
+      - lambda: |-
+          if (!id(display_backlight).remote_values.is_on()) {
+            auto call = id(display_backlight).turn_on();
+            call.set_brightness(0.80);
+            call.perform();
+          }
+          my_display.setup();
+
+logger:
+api:
+ota:
+  - platform: esphome
